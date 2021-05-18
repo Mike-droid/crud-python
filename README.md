@@ -672,3 +672,36 @@ with custom_open('file') as f:
 ```
 
 El código anterior funciona exactamente igual que cuando lo escribimos con una clase. La diferencia es que el código se ejecuta al inicializarse el contexto y retorna el control cuando el keyword yield regresa un valor. Una vez que termina el bloque with, el context manager toma de nueva cuenta el control y ejecuta el código de limpieza.
+
+## Python en el mundo real
+
+### Aplicaciones de Python en el mundo real
+
+Librerias:
+
+- [Astropy](https://www.astropy.org/)
+- [Biopython](https://biopython.org/)
+- [Sympy](https://www.sympy.org/)
+- [Numpy](https://numpy.org/)
+- [Pandas](https://pandas.pydata.org/)
+- [Matplotlib](https://matplotlib.org/)
+- [Scipy](https://www.scipy.org/)
+- [Sunpy](https://github.com/sunpy/sunpy)
+- [Tomopy](https://tomopy.readthedocs.io/en/latest/)
+
+CLI:
+
+- [Amazon Web Services](https://aws.amazon.com/)
+- [Google Cloud](https://cloud.google.com/)
+- [rebound](https://pypi.org/project/rebound-cli/)
+- geeknote -> Ya no existe 😔
+
+Aplicaciones Web:
+
+- [Django](https://www.djangoproject.com/)
+- [Flask](https://flask.palletsprojects.com/)
+- [Bottle](https://bottlepy.org/)
+- [Chalice](https://github.com/aws/chalice)
+- [Webapp2](https://webapp2.readthedocs.io/)
+- [Gunicor](https://gunicorn.org/)
+- [Tornado](https://www.tornadoweb.org/)
