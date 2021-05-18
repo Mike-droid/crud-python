@@ -1,0 +1,5 @@
+click==8.0.0
+colorama==0.4.4
+# Editable Git install with no remote (pv==0.1)
+-e c:\users\migue\desktop\cursos\cursosplatzi\crud_python
+tabulate==0.8.9
