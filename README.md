@@ -473,3 +473,202 @@ if __name__ == '__main__':
 _save_clients_to_storage()
 
 ```
+
+## Uso de objetos y módulos
+
+### Decoradores
+
+Los decoradores permiten extender y modificar el funcionamiento de las funciones. Los decoradores envuelven a otra función y permiten ejecutar código antes y después de que es llamada.
+
+Ejemplo:
+
+```python
+def lower_case(func): #función A(función B):
+  def wrapper(): # función C
+    #execute code before
+    result = func()
+    #execute code after
+    return result
+
+  return wrapper
+```
+
+**Ejemplo de la vida real**: Abrir y cerrar una conexión a una base de datos.
+
+[Decoradores en Python](https://realpython.com/primer-on-python-decorators/)
+
+[Funciones decoradoras en Python, explicado por Píldoras Informáticas](https://youtu.be/DQXm6bIZgvk)
+
+### Decoradores en Python
+
+[Vídeo Decoradores - Código Facilito](https://youtu.be/DlGPvq9r6Q4)
+
+[Decoradores](https://recursospython.com/guias-y-manuales/decoradores/)
+
+[Argumentos en funciones *args y **kwargs](https://recursospython.com/guias-y-manuales/argumentos-args-kwargs/)
+
+### ¿Qué es la programación orientada a objetos?
+
+4 Principios básicos
+
+- Encapsulación
+- Abstracción
+- Herencia
+- Polimorfismo
+
+Las clases nos sirven como un molde para crear las diferences instancias (objetos).
+
+### POO en Python
+
+[Qué es self en Python](https://www.edureka.co/blog/self-in-python/#:~:text=The)
+
+`self` es como el `this` de JavaScript.
+
+### Scopes and namespaces
+
+En Python, un name, también conocido como identifier, es simplemente una forma de otorgarle un nombre a un objeto. Mediante el nombre, podemos acceder al objeto. Vamos a ver un ejemplo:
+
+```python
+my_var = 5
+
+id(my_var) # 4561204416
+id(5) # 4561204416
+```
+
+En este caso, el identifier my_var es simplemente una forma de acceder a un objeto en memoria (en este caso el espacio identificado por el número 4561204416). Es importante recordar que un name puede referirse a cualquier tipo de objeto (aún las funciones).
+
+```python
+def echo(value):
+    return value
+
+a = echo
+
+a(‘Billy’) # 3
+
+```
+
+Ahora que ya entendimos qué es un name podemos avanzar a los namespaces (espacios de nombres). Para ponerlo en palabras llanas, un namespace es simplemente un conjunto de names.
+
+En Python, te puedes imaginar que existe una relación que liga a los nombres definidos con sus respectivos objetos (como un diccionario). Pueden coexistir varios namespaces en un momento dado, pero se encuentran completamente aislados. Por ejemplo, existe un namespace específico que agrupa todas las variables globales (por eso puedes utilizar varias funciones sin tener que importar los módulos correspondientes) y cada vez que declaramos una módulo o una función, dicho módulo o función tiene asignado otro namespace.
+
+A pesar de existir una multiplicidad de namespaces, no siempre tenemos acceso a todos ellos desde un punto específico en nuestro programa. Es aquí donde el concepto de scope (campo de aplicación) entra en juego.
+
+Scope es la parte del programa en el que podemos tener acceso a un namespace sin necesidad de prefijos.
+
+En cualquier momento determinado, el programa tiene acceso a tres scopes:
+
+- El scope dentro de una función (que tiene nombres locales)
+- El scope del módulo (que tiene nombres globales)
+- El scope raíz (que tiene los built-in names)
+
+Cuando se solicita un objeto, Python busca primero el nombre en el scope local, luego en el global, y por último, en el raíz. Cuando anidamos una función dentro de otra función, su scope también queda anidado dentro del scope de la función padre.
+
+```python
+def outer_function(some_local_name):
+  def inner_function(other_local_name):
+    # Tiene acceso a la built-in function print y al nombre local some_local_name
+    print(some_local_name)
+
+    # También tiene acceso a su scope local
+    print(other_local_name)
+```
+
+Para poder manipular una variable que se encuentra fuera del scope local podemos utilizar los keywords global y nonlocal.
+
+```python
+some_var_in_other_scope = 10
+
+def some_function():
+  global some_var_in_other_scope
+
+  Some_var_in_other_scope += 1
+```
+
+[Python namespace and Scope](https://www.programiz.com/python-programming/namespace)
+
+### Introducción a Click
+
+Click es una framework que nos permite crear aplicaciones de Command Line. Tiene 4 decoradores básicos:
+
+1. @click.group -> Agrupa una serie de comandos
+2. @click.command -> Definimos los comandos de nuestra app
+3. @click.argument -> Parámetros necesarios
+4. @click.option -> Parámetros opcionales
+
+[Documentación oficial de Click - Python](https://click.palletsprojects.com/en/8.0.x/)
+
+A día de hoy (mayo 2021) estamos en la versión 8.0.1
+
+[Tutorial de Click](https://www.youtube.com/watch?v=riQd3HNbaDk)
+
+### Definición a la API pública
+
+### Clients
+
+### Servicios: Lógica de negocio de nuestra aplicación
+
+### Iterface de create: Comunicación entre servicios y el cliente
+
+### Actualización de cliente
+
+### Interface de actualización
+
+### Manejo de errores y jerarquía de errores en Python
+
+Los errores deben ser manejados de manera estratégica.
+
+Jerarquía de errores:
+
+- try: Ejecuta este código
+- except: Ejecuta este código cuando hay una excepción
+- else: ¿No hay excepciones? Ejecuta este código
+- finally: Siempre ejecuta este código
+
+### Context managers
+
+Los context managers son objetos de Python que proveen información contextual adicional al bloque de código. Esta información consiste en correr una función (o cualquier callable) cuando se inicia el contexto con el keyword with; al igual que correr otra función cuando el código dentro del bloque with concluye. Por ejemplo:
+
+```python
+with open(‘some_file.txt’) as f:
+    lines = f.readlines()
+```
+
+Si estás familiarizado con este patrón, sabes que llamar la función open de esta manera, garantiza que el archivo se cierre con posterioridad. Esto disminuye la cantidad de información que el programador debe manejar directamente y facilita la lectura del código.
+
+Existen dos formas de implementar un context manager: con una clase o con un generador. Vamos a implementar la funcionalidad anterior para ilustrar el punto:
+
+```python
+class CustomOpen(object):
+  def __init__(self, filename):
+    self.file = open(filename)
+
+  def __enter__(self):
+    return self.file
+
+  def __exit__(self, ctx_type, ctx_value, ctx_traceback):
+    self.file.close()
+
+with CustomOpen('file') as f:
+  contents = f.read()
+```
+
+Esta es simplemente una clase de Python con dos métodos adicionales: enter y exit. Estos métodos son utilizados por el keyword with para determinar las acciones de inicialización, entrada y salida del contexto.
+
+El mismo código puede implementarse utilizando el módulo contextlib que forma parte de la librería estándar de Python.
+
+```python
+from contextlib import contextmanager
+
+@contextmanager
+def custom_open(filename):
+  f = open(filename)
+  try:
+    yield f
+  finally:
+    f.close()
+
+with custom_open('file') as f:
+  contents = f.read()
+```
+
+El código anterior funciona exactamente igual que cuando lo escribimos con una clase. La diferencia es que el código se ejecuta al inicializarse el contexto y retorna el control cuando el keyword yield regresa un valor. Una vez que termina el bloque with, el context manager toma de nueva cuenta el control y ejecuta el código de limpieza.
